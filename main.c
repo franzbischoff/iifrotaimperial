@@ -54,14 +54,15 @@ uint32_t count[10];
 
 void calc_freq_base(uint32_t a, uint32_t b);
 void calc_freq();
+void print_freq();
 
 /*
  *
  */
 int main(int argc, char** argv)
 {
-    uint32_t a = 533;
-    uint32_t b = 1066;
+    uint32_t a = 33;
+    uint32_t b = 14451999;
 
     calc_freq_base(a, b);
     print_freq();
@@ -76,11 +77,13 @@ void calc_freq_base(uint32_t a, uint32_t b)
 {
     uint32_t i, j;
 
+    // initilize counters
     for (i = 0; i < 10; i++)
     {
         count[i] = 0;
     }
 
+    // just pass thru the numbers and count them
     for (i = a; i <= b; i++)
     {
         j = i;
@@ -94,73 +97,78 @@ void calc_freq_base(uint32_t a, uint32_t b)
 
 void calc_freq(uint32_t a, uint32_t b)
 {
-    int32_t m, n, i, j, k;
+    int32_t m, n, magnitude, i, j, k;
 
+    // initilize counters
     for (i = 0; i < 10; i++)
     {
         count[i] = 0;
     }
 
     // find magnitude
-    for (i = 10, m = -1; !(a % i); i *= 10)
+    for (magnitude = 10, m = -1; !(a % magnitude); magnitude *= 10)
         m++;
-
-    // i = 100
-    // m = 0
 
     for (n = a; n <= b;)
     {
-        if (n % i)
+        if (n % magnitude)
         {
-            // don't count for more than the last from sequence
-            while (n + i / 10 > b)
+            // don't count for more than the last from the sequence
+            while (n + magnitude / 10 > b)
             {
                 // decrease magnitude
-                i /= 10;
+                magnitude /= 10;
                 m--;
             }
 
-            // count unity
-            if (i > 10)
+            // first count rightmost digit
+            if (magnitude > 10)
             {
-                for (k = 0; k < 10; k++)
+                // if magnitude is more than 10^1, increase every unity by 10^m for m >= 0 or 1 for m < 0
+                for (i = 0; i < 10; i++)
                 {
-                    count[k] += quick_pow10(m);
+                    count[i] += quick_pow10(m);
                 }
             }
             else
             {
+                // else, increase current unity by 10^m for m >= 0 or 1 for m < 0
                 count[n % 10] += quick_pow10(m);
             }
 
-            for (j = n / 10; j > 0; j /= 10)
+            // now count other digits
+            for (k = 3, j = n / 10; j > 0; j /= 10, k++)
             {
-                if (j < 10) // count left most
+                if (j < 10) // count lefmost digit
                 {
+                    // increase current digit by 10^(m+1) for (m+1) >= 0 or 1 for (m+1) < 0
                     count[j] += quick_pow10(m + 1);
                 }
-                else // count others
+                else // count other digits
                 {
-                    if (i > 10)
+                    if (magnitude < quick_pow10(k))
                     {
-                        for (k = 0; k < 10; k++)
-                        {
-                            count[k] += quick_pow10(m);
-                        }
+                        // if magnitude is less then current magnitude, increase current digit by 10^(m+1) for (m+1) >= 0 or 1 for (m+1) < 0
+                        count[j % 10] += quick_pow10(m + 1);
                     }
                     else
                     {
-                        count[n % 10] += quick_pow10(m);
+                        for (i = 0; i < 10; i++)
+                        {
+                            // else increase increase every digit by 10^m+ for m >= 0 or 1 for m < 0
+                            count[i] += quick_pow10(m);
+                        }
                     }
                 }
             }
 
-            n += i == 1 ? 1 : i / 10;
+            // jump for the next chunk
+            n += magnitude == 1 ? 1 : magnitude / 10;
         }
         else
         {
             // increase magnitude
-            i *= 10;
+            magnitude *= 10;
             m++;
         }
     }

@@ -47,7 +47,8 @@
       </toolsSet>
       <compileType>
         <cTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>6</developmentMode>
+          <warningLevel>2</warningLevel>
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>

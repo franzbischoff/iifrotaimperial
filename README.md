@@ -19,7 +19,7 @@ Dada um conjunto de N intervalos de números, a tua tarefa é descobrir, para ca
 
 Na primeira linha vem um único número inteiro N, indicando a quantidade de intervalos a considerar.
 
-Nas N linhas seguintes vem um par de números Ai Bi (separados por um espaço), indicando que i-ésimo intervalo de números a considerar é [A,B] (ou seja, os números de A a B, inclusive).
+Nas N linhas seguintes vem um par de números Ai Bi (separados por um espaço), indicando que i-ésimo intervalo de números a considerar é &#91;A,B&#93; (ou seja, os números de A a B, inclusive).
 
 <h2>Output</h2>
 

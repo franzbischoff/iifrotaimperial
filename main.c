@@ -98,7 +98,7 @@ int32_t main(int32_t argc, char** argv)
             calc_freq_base(a, b);
         else
             calc_freq(a, b);
-        
+
         print_most_frequent();
     }
 
@@ -241,7 +241,7 @@ void print_help()
     printf("\tINPUT:\n\t\tThis program uses the stdin. Type 'program < input.txt' for file input or use the -i argument for interactive mode.\n\n");
 
     printf("\tFORMAT:\n\t\tThe first line holds an integer 'N' with the number of intervals do consider. This number must be 1 <= N <= 1,000.\n");
-    printf("\t\tThe following lines are composed by two integers 'A' and 'B'. These numbers must be 1 <= A <= B <= 1,000,000,000.\n\n");
+    printf("\t\tThe following lines are composed of two integers 'A' and 'B'. These numbers must be 1 <= A <= B <= 1,000,000,000.\n\n");
 
     printf("\tOUTPUT:\n\t\tThe output is composed of N lines. The first number tells the frequency and the following numbers the digits that are most frequent.\n\n");
 
